@@ -38,8 +38,7 @@ echo "export PATH=\"\$PATH:~/.config/composer/vendor/bin\"" >> ~/.bashrc
 
 
 # install Valet 
-sudo dnf install nss-tools jq xsel
+sudo dnf install nss-tools jq xsel openssl -y
 sudo sed -i 's/SELINUX=enforcing/SELINUX=permissive/g' /etc/selinux/config
 composer global require cpriego/valet-linux
 valet install
-
