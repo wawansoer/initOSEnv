@@ -1,0 +1,50 @@
+sudo dnf check-update
+sudo dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+clear
+sudo dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+sudo dnf install https://rpms.remirepo.net/fedora/remi-release-40.rpm
+sudo dnf module reset php
+dnf module install php:remi-8.2
+sudo dnf module install php:remi-8.2
+sudo dnf repolist
+php 
+php --modules
+sudo dnf install nginx php-fpm -y
+sudo systemctl enable --now nginx php-fpm
+sudo systemctl status nginx php-fpm
+clear
+sudo nano /etc/php-fpm.d/www.conf
+sudo vim /etc/php-fpm.d/www.conf
+sudo dnf install vim 
+sudo vim /etc/php-fpm.d/www.conf
+sudo nano /etc/php-fpm.d/www.conf
+sudo systemctl restart php-fpm
+sudo nginx -t
+sudo dnf update -y 
+sudo reboot 
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+sudo dnf install curl php-zip unzip
+curl -sS https://getcomposer.org/installer -o composer-setup.php
+HASH=$(curl -sS https://composer.github.io/installer.sig)
+php -r "if (hash_file('sha384', 'composer-setup.php') === '$HASH') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+rm composer-setup.php
+composer -v 
+exit 
+sudo shutdown now 
+sudo dnf install php php-cli php-zip wget unzip
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php -r "if (hash_file('sha384', 'composer-setup.php') === '9b9bff7bc0c5b155b7eae0e6c13db73b07f7c57cd5c8b2b42c1ee095eea10b4c2d1b3e7e4f4aa1076e65f5ac0c9712e7c') === false) { echo 'Installer corrupt'; unlink('composer-setup.php'); exit(1); }"
+php composer-setup.php
+php -r "unlink('composer-setup.php');"
+sudo mv composer.phar /usr/local/bin/composer
+composer --version
+sudo dnf install nss-tools jq xsel
+sudo dnf install php-{cli,process,mbstring,mcrypt,xml,sqlite3,mysql,pgsql}
+sudo dnf install php-pecl-redis
+sudo systemctl restart php-fpm
+sudo nano /etc/selinux/config 
+sudo reboot 
+composer global require cpriego/valet-linux
+valet 
