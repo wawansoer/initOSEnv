@@ -19,26 +19,29 @@ if ! command -v nativefier &> /dev/null; then
     npm install -g nativefier
 fi
 
-# Jika membuat aplikasi Gmail, gunakan User-Agent untuk menghindari masalah keamanan
-if [[ "$APP_NAME" == "Gmail" ]]; then
-    echo "Membuat aplikasi Gmail dari $APP_URL..."
-    nativefier --name "$APP_NAME" --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36" "$APP_URL"
-else
-    # Buat aplikasi menggunakan Nativefier
-    echo "Membuat aplikasi $APP_NAME dari $APP_URL..."
-    nativefier --name "$APP_NAME" "$APP_URL"
-fi
+# Membangun aplikasi menggunakan Nativefier dengan pengaturan keamanan
+echo "Membuat aplikasi $APP_NAME dari $APP_URL..."
+nativefier \
+    --name "$APP_NAME" \
+    --user-agent "Mozilla/5.0 (X11; Linux x86_64; rv:131.0) Gecko/20100101 Firefox/131.0" \
+    --secure \
+    --disable-context-isolation false \
+    --enable-sandbox true \
+    --disable-web-security false \
+    --internal-urls ".*" \
+    --overwrite \
+    "$APP_URL"
 
 # Buat struktur folder untuk paket Debian
 echo "Membuat struktur folder untuk paket Debian..."
 mkdir -p "$APP_NAME/DEBIAN"
-mkdir -p "$APP_NAME/usr/local/bin"
+mkdir -p "$APP_NAME/usr/local/bin/$APP_NAME"
 mkdir -p "$APP_NAME/usr/share/applications"
 mkdir -p "$APP_NAME/usr/share/icons/hicolor/512x512/apps"
 
 # Salin aplikasi ke dalam struktur paket
 echo "Menyalin aplikasi ke dalam struktur paket..."
-cp -r "$APP_NAME-linux-x64/"* "$APP_NAME/usr/local/bin/"
+cp -r "$APP_NAME-linux-x64/"* "$APP_NAME/usr/local/bin/$APP_NAME/"
 
 # Buat file kontrol Debian
 echo "Membuat file kontrol Debian..."
@@ -59,7 +62,7 @@ echo "Membuat file Desktop Entry..."
 cat <<EOL > "$APP_NAME/usr/share/applications/$APP_NAME.desktop"
 [Desktop Entry]
 Name=$APP_NAME
-Exec=/usr/local/bin/$APP_NAME
+Exec=/usr/local/bin/$APP_NAME/$APP_NAME
 Icon=/usr/share/icons/hicolor/512x512/apps/$APP_NAME.png
 Type=Application
 Categories=Utility;
