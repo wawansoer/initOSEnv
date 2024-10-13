@@ -1,4 +1,6 @@
 #!/bin/bash
+sudo apt install git zsh -y
+
 flatpak install com.boxy_svg.BoxySVG \
     com.brave.Browser \ 
     com.github.PintaProject.Pinta \
