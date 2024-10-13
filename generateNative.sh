@@ -24,11 +24,19 @@ echo "Membuat aplikasi $APP_NAME dari $APP_URL..."
 nativefier \
     --name "$APP_NAME" \
     --user-agent "Mozilla/5.0 (X11; Linux x86_64; rv:131.0) Gecko/20100101 Firefox/131.0" \
-    --secure \
-    --disable-context-isolation false \
-    --enable-sandbox true \
-    --disable-web-security false \
-    --internal-urls ".*" \
+    --icon "$ICON_PATH" \
+    --disable-dev-tools \
+    --single-instance \
+    --file-download-options '{"saveAs": true}' \
+    --internal-urls ".*?(google\.com|accounts\.google\.com|googleapis\.com)" \
+    --strict-internal-urls \
+    --lang "en-US" \
+    --verbose \
+    --app-version "1.0.0" \
+    --darwin-dark-mode-support \
+    --fast-quit \
+    --background-color "#ffffff" \
+    --disable-old-build-warning-yesiknowitisinsecure \
     --overwrite \
     "$APP_URL"
 
@@ -54,7 +62,7 @@ Architecture: amd64
 Depends: libgtk-3-0, libgconf-2-4
 Maintainer: Your Name <your.email@example.com>
 Description: $APP_DESCRIPTION
- A brief description of what the app does.
+    A brief description of what the app does.
 EOL
 
 # Buat file Desktop Entry
@@ -78,3 +86,10 @@ dpkg-deb --build "$APP_NAME"
 
 # Selesai
 echo "Paket $APP_NAME.deb telah berhasil dibuat."
+
+
+sudo apt remove --purge -y $APP_NAME
+
+sudo dpkg -i ./$APP_NAME.deb && rm -rf ./$APP_NAME.deb ./$APP_NAME ./$APP_NAME-linux-x64
+
+
