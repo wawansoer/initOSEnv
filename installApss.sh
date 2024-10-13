@@ -1,5 +1,14 @@
 #!/bin/bash
-sudo apt install git zsh -y
+sudo apt install -y \
+    flatpak \
+    git \
+    zsh \
+    gnome-shell-extension-prefs
+    gnome-tweaks \ 
+    gnome-shell-extension-manager \
+    chrome-gnome-shell \ 
+
+sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 flatpak install com.boxy_svg.BoxySVG \
     com.brave.Browser \ 
