@@ -26,10 +26,6 @@ sudo apt install -y nginx
 # Install Composer
 curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
 
-# Install Node.js and npm
-curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-sudo apt install -y nodejs
-
 # Install Valet Linux dependencies
 sudo apt install -y network-manager libnss3-tools jq xsel
 
